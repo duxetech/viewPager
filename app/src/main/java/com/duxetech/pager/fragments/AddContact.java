@@ -1,6 +1,5 @@
-package com.karthik.pager;
+package com.duxetech.pager.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.duxetech.pager.model.Contacts;
+import com.duxetech.pager.db.DBManager;
+import com.duxetech.pager.R;
+
 import java.util.List;
 
 /**
  * Created by Karthik Swamy on 27-11-2018.
  */
-public class Frag2 extends Fragment {
+public class AddContact extends Fragment {
     View view;
     DBManager db;
     EditText et_fName, et_lName, et_Mobile, et_mail, et_address;
@@ -36,7 +39,6 @@ public class Frag2 extends Fragment {
         db = new DBManager(getActivity());
         list = db.getAllContacts();
         mapViews();
-        Bundle bundle = this.getArguments();
 //        Toast.makeText(getActivity(), "hi "+bundle.getString("tabSwiped"), Toast.LENGTH_SHORT).show();
 
         btn_addContact.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +57,7 @@ public class Frag2 extends Fragment {
                 db.insertContact(new Contacts(a,b,c,d,e));
                 // db.read(list);
 
-                Intent i = new Intent(getActivity(),Frag3.class);
-              //  startActivity(i);
+
                 clear();
             }
         });

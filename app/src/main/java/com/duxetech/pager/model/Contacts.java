@@ -1,4 +1,4 @@
-package com.karthik.pager;
+package com.duxetech.pager.model;
 
 /**
  * Created by Karthik Swamy on 27-11-2018.

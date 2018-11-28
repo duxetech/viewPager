@@ -1,4 +1,4 @@
-package com.karthik.pager;
+package com.duxetech.pager;
 
 import org.junit.Test;
 

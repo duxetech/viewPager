@@ -1,4 +1,4 @@
-package com.karthik.pager;
+package com.duxetech.pager.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,7 +38,7 @@ public class pagerAdapter extends FragmentPagerAdapter {
         return fTitle.get(position);
     }
 
-    void addFragment(Fragment f, String title){
+    public void addFragment(Fragment f, String title){
         fList.add(f);
         fTitle.add(title);
 

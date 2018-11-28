@@ -1,19 +1,21 @@
-package com.karthik.pager;
+package com.duxetech.pager.activities;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TableLayout;
-import android.widget.Toast;
+
+import com.duxetech.pager.R;
+import com.duxetech.pager.adapters.pagerAdapter;
+import com.duxetech.pager.fragments.AddContact;
+import com.duxetech.pager.fragments.Contacts;
 
 public class MainActivity extends AppCompatActivity {
 
     pagerAdapter adapter;
     String tabSelected, tabChanged;
-    String cat;
     Bundle bundle;
+
 
 
     @Override
@@ -24,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tab = findViewById(R.id.tabs);
         adapter = new pagerAdapter(getSupportFragmentManager(),tab.getTabCount());
 
-        adapter.addFragment(new Frag1(),"Login");
-        adapter.addFragment(new Frag2(),"Add Contact");
-        adapter.addFragment(new Frag3(),"Contacts");
+        //adapter.addFragment(new Login(),"Login");
+        adapter.addFragment(new AddContact(),"Add Contact");
+        adapter.addFragment(new Contacts(),"Contacts");
+       // adapter.addFragment(new Details(),"Details");
         pager.setAdapter(adapter);
         tab.setupWithViewPager(pager);
 
@@ -61,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                 Toast.makeText(MainActivity.this, ""+tab.getText(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, ""+tab.getText(), Toast.LENGTH_SHORT).show();
                 tabChanged = String.valueOf(tab.getText());
                 bundle.putString("tabSwiped",tabChanged);
-                Frag2 fragobj = new Frag2();
+                AddContact fragobj = new AddContact();
                 fragobj.setArguments(bundle);
 
             }

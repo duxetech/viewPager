@@ -1,4 +1,4 @@
-package com.karthik.pager;
+package com.duxetech.pager;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,11 +1,12 @@
-package com.karthik.pager;
+package com.duxetech.pager.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
+
+import com.duxetech.pager.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class DBManager extends SQLiteOpenHelper {
         }
         return contact_list;
     }
-    boolean checkPhoneExists(String phone) {
+    public boolean checkPhoneExists(String phone) {
         db = getReadableDatabase();
         Cursor c = db.rawQuery("select * from "+contacts_table+"", null);
         while (c.moveToNext()) {
@@ -71,6 +72,25 @@ public class DBManager extends SQLiteOpenHelper {
             }
         }
         return false;
+    }
+    Cursor read(){
+
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("select * from login", null);
+        return c;
+    }
+
+    boolean validateLogin(String name, String pass){
+        Cursor c = read();
+        while(c.moveToNext()){
+            if(name.equals(c.getString(c.getColumnIndex("name")))
+                    &&pass.equals(c.getString(c.getColumnIndex("password")))){
+                return true;
+            }
+        }
+        return false;
+
+
     }
 
 

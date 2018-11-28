@@ -1,4 +1,4 @@
-package com.karthik.pager;
+package com.duxetech.pager.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,23 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.duxetech.pager.adapters.CustAdapter;
+import com.duxetech.pager.db.DBManager;
+import com.duxetech.pager.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 /**
  * Created by Karthik Swamy on 27-11-2018.
  */
-public class Frag3 extends Fragment {
+public class Contacts extends Fragment {
 
     ListView lv;
     CustAdapter adapter;
-    List<Contacts> list = new ArrayList<>();
+    List<com.duxetech.pager.model.Contacts> list = new ArrayList<>();
     //List<String> list1 = new ArrayList<>(asList("aa","bb","cc"));
     DBManager db;
     @Override
