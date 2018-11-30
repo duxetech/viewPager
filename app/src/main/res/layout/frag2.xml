@@ -82,13 +82,13 @@
             android:gravity="center"/>
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_addContact"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Contact"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:text="Swipe to save contact!"
         android:layout_marginTop="30dp"
-        android:textColor="#ffff"
-        android:background="#272b91"/></LinearLayout>
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/blue"/>
+
+</LinearLayout>

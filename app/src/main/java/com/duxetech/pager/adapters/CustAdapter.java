@@ -46,9 +46,11 @@ public class CustAdapter extends BaseAdapter {
         LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inf.inflate(R.layout.listview_item,parent,false);
         tv1 = view.findViewById(R.id.tv1);
+        tv2 = view.findViewById(R.id.tv2);
         tv3 = view.findViewById(R.id.tv3);
         contact = list.get(position);
         tv1.setText(contact.getFirst_name());
+        tv2.setText(contact.getLast_name());
         tv3.setText(contact.getMobile());
         return view;
     }

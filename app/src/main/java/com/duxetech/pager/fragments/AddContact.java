@@ -12,9 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.duxetech.pager.events.Events;
+import com.duxetech.pager.events.eventBus;
 import com.duxetech.pager.model.Contacts;
 import com.duxetech.pager.db.DBManager;
 import com.duxetech.pager.R;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -27,7 +32,7 @@ public class AddContact extends Fragment {
     EditText et_fName, et_lName, et_Mobile, et_mail, et_address;
     Button btn_addContact;
     List<Contacts> list ;
-    String a, b,c,d,e;
+    String a, b,c,d,e, tabSwiped;
     Contacts con;
     TextView tvWelcome;
     @Nullable
@@ -35,12 +40,13 @@ public class AddContact extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.frag2, container, false);
+        eventBus.getBus().register(this);
 
         db = new DBManager(getActivity());
         list = db.getAllContacts();
         mapViews();
-//        Toast.makeText(getActivity(), "hi "+bundle.getString("tabSwiped"), Toast.LENGTH_SHORT).show();
 
+/*
         btn_addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,14 +67,40 @@ public class AddContact extends Fragment {
                 clear();
             }
         });
-
-
+*/
 
         return view;
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMain(Events.TabSelected event){
+        tabSwiped = event.getMsg();
+        if(tabSwiped.equals("Add Contact")){
+            mapInput();
+            checkInputFields();
+            if(a.equals("")|b.equals("")|c.equals("")){
+               // Toast.makeText(getActivity(), "Enter all the details", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(db.checkPhoneExists(c)){
+                Toast.makeText(getActivity(), "Mobile no already exists", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            db.insertContact(new Contacts(a,b,c,d,e));
+            Toast.makeText(getActivity(), "Contact Saved", Toast.LENGTH_SHORT).show();
+            clear();
+        }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Unregister the registered event.
+        eventBus.getBus().unregister(this);
+    }
 
     void mapViews(){
-        btn_addContact = view.findViewById(R.id.btn_addContact);
+       // btn_addContact = view.findViewById(R.id.btn_addContact);
         et_fName = view.findViewById(R.id.et_fName);
         et_lName = view.findViewById(R.id.et_lName);
         et_Mobile = view.findViewById(R.id.et_Mobile);
@@ -89,13 +121,10 @@ public class AddContact extends Fragment {
             return;
         }
     }
-    void checkUserExists(){
 
-
-    }
     boolean checkA() {
         if (a.isEmpty()) {
-            et_fName.setError("Field can't be empty");
+            et_fName.setError("First name can't be empty");
             return false;
         } else
             return true;
@@ -103,14 +132,14 @@ public class AddContact extends Fragment {
 
     boolean checkB() {
         if (b.isEmpty()) {
-            et_lName.setError("Field can't be empty");
+            et_lName.setError("Last name can't be empty");
             return false;
         } else
             return true;
     }
     boolean checkC() {
         if (c.isEmpty()) {
-            et_Mobile.setError("Field can't be empty");
+            et_Mobile.setError("Mobile  no can't be empty");
             return false;
         } else
             return true;
